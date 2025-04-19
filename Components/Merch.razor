@@ -1,0 +1,24 @@
+@using BlazorApp.Models
+<div class="col" data-bss-type="blog-loop-item" @onclick="HandleClick" data-bs-toggle="modal" data-bs-target="@BsModalName">
+    <div class="card border-0 project-item">
+        @* <a class="stretched-link text-decoration-none" href="@DataToBeSent.NavigateUri"></a> *@
+        <img class="card-img w-100 d-block card-img-top" alt="@DataToBeSent.Name" src="@DataToBeSent.ImageUrl">
+        <div class="card-img-overlay text-white">
+            <h4 class="fs-6 fw-bold mb-1">@DataToBeSent.Name</h4>
+            <p class="mb-0">@DataToBeSent.Description</p>
+        </div>
+    </div>
+</div>
+
+
+@code{
+    
+    [Parameter] public Data DataToBeSent { get; set; }
+    [Parameter] public EventCallback<string> OnClick { get; set; }
+    [Parameter] public string BsModalName { get; set; } = "#exampleModal";
+    
+    private async Task HandleClick()
+    {
+        await OnClick.InvokeAsync(DataToBeSent.ProjectName);
+    }
+}

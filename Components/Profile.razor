@@ -1,0 +1,55 @@
+<div class="col-lg-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1 mb-5 mb-md-3">
+        <div class="col-sm-4"> 
+            <img class="img-fluid border rounded border-0 shadow-sm mb-4" alt="@profile.ProfileImage"
+                 src="@profile.ProfileImage">
+        </div>
+        <div class="col-sm-8 order-sm-first order-lg-last">
+            <h3 class="fs-5 fw-bold text-primary">@profile.Greeting</h3>
+            <p>@profile.Description</p>
+            <p>@profile.Availability</p>
+            <h3 class="fs-6 fw-bold text-primary">Email</h3>
+            <p>@profile.Email</p>
+            <h3 class="fs-6 fw-bold text-primary">Social</h3>
+            <ul class="list-inline">
+                @foreach (var social in profile.SocialLinks)
+                {
+                    <li class="list-inline-item">
+                        <a class="text-reset" href="@social.Url" target="_blank" rel="noopener">
+                            <i class="@social.IconClass fs-5"></i>
+                        </a>
+                    </li>
+                } 
+            </ul>
+            <a class="btn btn-lg btn-primary-dragient mt-3" role="button" href="@profile.HireMeUrl">Hello There</a>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    public class PortfolioProfile
+    {
+        public string Name { get; set; } = "Code Fry Dev";
+        public string Greeting { get; set; } = "Hey! I'm Code Fry Dev";
+        public string Description { get; set; } = "This is my portfolio! Here you'll find info about me and my projects.";
+        public string Availability { get; set; } = "I'm available for hire";
+        public string Email { get; set; } = "cfd@example.com";
+        public string ProfileImage { get; set; } = "safari-pinned-tab.svg";
+        public List<SocialLink> SocialLinks { get; set; } =
+        [
+            new SocialLink { Platform = "GitHub", IconClass = "bi bi-github", Url = "#" },
+            new SocialLink { Platform = "Instagram", IconClass = "bi bi-instagram", Url = "#" },
+            new SocialLink { Platform = "TikTok", IconClass = "bi bi-tiktok", Url = "#" }
+        ];
+        public string HireMeUrl { get; set; } = "";
+    }
+
+    public class SocialLink
+    {
+        public string Platform { get; set; }
+        public string IconClass { get; set; }
+        public string Url { get; set; }
+    }
+    PortfolioProfile profile = new PortfolioProfile();
+}

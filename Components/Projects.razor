@@ -1,0 +1,43 @@
+@using BlazorApp.Components.Projekt
+@using BlazorApp.Models
+<div class="row mb-5">
+    <div class="col">
+        <h2 class="fs-5 fw-bold text-primary mb-3">@Title</h2>
+        <div data-bss-type="blog-loop" data-bss-perpage="5">
+            <div class="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-lg-3" data-bss-type="blog-loop-base">
+                
+                @foreach(var item in Projectslist)
+                {
+                    <Merch DataToBeSent="@item" OnClick="LoadContent" BsModalName="#exampleModal"></Merch>
+                } 
+            </div>
+        </div>
+    </div>
+</div>
+<MerchViewer ChildContent="_selectedContent" />
+@code {
+    private RenderFragment? _selectedContent = builder =>
+    {
+        builder.OpenComponent(0, typeof(ProjectOne));
+        builder.CloseComponent();
+    };
+
+    private void LoadContent(string contentType)
+    {
+        _selectedContent = contentType switch
+        {
+            nameof(ProjectOne)   => b => { b.OpenComponent(0, typeof(ProjectOne));   b.CloseComponent(); },
+            nameof(ProjectTwo)   => b => { b.OpenComponent(0, typeof(ProjectTwo));   b.CloseComponent(); },
+            nameof(ProjectThree) => b => { b.OpenComponent(0, typeof(ProjectThree)); b.CloseComponent(); },
+            nameof(ProjectFour)  => b => { b.OpenComponent(0, typeof(ProjectFour));  b.CloseComponent(); },
+            nameof(ThreeDModelViewer)  => b => { b.OpenComponent(0, typeof(ThreeDModelViewer));  b.CloseComponent(); },
+            _=> null
+        };
+    }
+}
+@code { 
+    
+    [Parameter] public List<Data> Projectslist { get; set; } = []; 
+    [Parameter] public string Title { get; set; } = "Projects";
+}
+ 

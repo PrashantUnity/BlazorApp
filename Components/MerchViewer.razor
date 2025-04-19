@@ -1,0 +1,29 @@
+@if (ChildContent is not null)
+{
+   
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"> 
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body  border border-5 border-secondary rounded-3 p-4 border-opacity-10">
+                    @ChildContent
+                </div> 
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <button @onclick="GoBack" >No Content Go Back</button>
+}
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Inject] NavigationManager NavigationManager { get; set; }
+
+    private void GoBack()
+    { 
+        NavigationManager.NavigateTo("");    
+    }
+}

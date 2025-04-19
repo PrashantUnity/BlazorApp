@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col">
+        <div class="mb-5">
+            <h3 class="fs-5 fw-bold text-primary mb-3">@resume.Title</h3>
+            <p>@resume.Description</p>
+        </div>
+        @{
+            var i = 0;
+        }
+        @foreach (var item in resume.Items)
+        { 
+            var isAltBg = i % 2 == 0; // alternate background
+            i++;  
+            <div class="@(isAltBg ? "bg-primary-subtle" : "") d-md-flex justify-content-md-between p-3 mb-3">
+                <div class="mb-3 mb-md-0">
+                    <p class="fw-bold mb-1">@item.Period</p>
+                    <p class="mb-0">@item.Title</p>
+                </div>
+                <div class="text-md-end">
+                    <p class="text-primary mb-1">@item.Institution</p>
+                    <p class="mb-0">@item.Location</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code
+{
+    public class ResumeProfile
+    {
+        public string Title { get; set; } = "Resume";
+        public string Description { get; set; } = "Sodales scelerisque metus suscipit porta. Sociosqu molestie consectetur inceptos, diam habitasse etiam vel fermentum. Scelerisque sodales pulvinar, nec condimentum integer.";
+        public List<ResumeItem> Items { get; set; } =
+        [
+            new ResumeItem
+            {
+                Period = "2018-2022",
+                Title = "Bachelor of Arts in Desgin",
+                Institution = "Gerrit Rietveld Academie",
+                Location = "Amsterdam, Netherlands"
+            },
+
+            new ResumeItem
+            {
+                Period = "2022-2024",
+                Title = "Junior Graphic Designer",
+                Institution = "Design Partners Inc",
+                Location = "Amsterdam, Netherlands"
+            },
+
+            new ResumeItem
+            {
+                Period = "2024-Now",
+                Title = "Freelancer",
+                Institution = "Beanie Inc",
+                Location = "Worldwide"
+            }
+        ];
+    }
+
+    public class ResumeItem
+    {
+        public string Period { get; set; }
+        public string Title { get; set; }
+        public string Institution { get; set; }
+        public string Location { get; set; }
+    }
+    ResumeProfile resume = new ResumeProfile();
+}

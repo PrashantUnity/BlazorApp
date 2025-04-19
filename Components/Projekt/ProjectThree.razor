@@ -1,0 +1,67 @@
+<div class="row mb-5">
+    <div class="col"> 
+        <h1 class="fs-3 fw-bold">@Project.Title</h1>
+        <p class="text-muted">@Project.DescriptionShort</p>
+        <img class="img-fluid my-5 mt-md-3" alt="@Project.Title" src="@Project.ImageUrl" />
+        <div class="row">
+            <div class="col-md-9">
+                <p>@Project.DescriptionParagraph1</p>
+                <p class="mb-4">@Project.DescriptionParagraph2</p>
+            </div>
+            <div class="col">
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-1">
+                    <div class="col">
+                        <h3 class="fs-6 fw-bold text-primary mb-0">Client</h3>
+                        <p class="text-muted">@Project.ClientInfo.ClientName</p>
+                    </div>
+                    <div class="col">
+                        <h3 class="fs-6 fw-bold text-primary mb-0">Category</h3>
+                        <p class="text-muted">@Project.ClientInfo.Category</p>
+                    </div>
+                    <div class="col">
+                        <h3 class="fs-6 fw-bold text-primary mb-0">Date</h3>
+                        <time class="text-muted">@Project.ClientInfo.Date.ToString("MMM dd, yyyy")</time>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code
+{
+    private ProjectThreeDetails Project = new ProjectThreeDetails
+    {
+        Title = "Peach App",
+        DescriptionShort = "Android Icon",
+        ImageUrl = "assets/img/projects/project4.webp",
+        DescriptionParagraph1 = "Arcu dictumst rhoncus metus tellus. Habitant senectus sociosqu et aenean porttitor facilisis, risus etiam semper.",
+        DescriptionParagraph2 = "Phasellus habitasse in, metus proin aliquam. Bibendum neque dictum, lacus nisl netus sodales et id lacinia quam. Sodales hendrerit fringilla sodales nam venenatis, at facilisis viverra. Faucibus aenean ligula ultrices.",
+        ClientInfo = new ClientInfo
+        {
+            ClientName = "John Doe",
+            Category = "Graphic Design",
+            Date = new DateTime(2024, 11, 13)
+        }
+    };
+    public class ProjectThreeDetails
+    {
+        public string Title { get; set; } = "Peach App";
+        public string DescriptionShort { get; set; } = "Android Icon";
+        public string ImageUrl { get; set; } = "../assets/img/projects/project4.webp";
+        public string DescriptionParagraph1 { get; set; }
+        public string DescriptionParagraph2 { get; set; }
+
+        public ClientInfo ClientInfo { get; set; }
+    }
+
+    public class ClientInfo
+    {
+        public string ClientName { get; set; } = "John Doe";
+        public string Category { get; set; } = "Graphic Design";
+        public DateTime Date { get; set; } = new DateTime(2024, 11, 13);
+    }
+
+}

@@ -1,0 +1,55 @@
+<div class="row mb-5">
+    <div class="col"> 
+        <h1 class="fs-3 fw-bold">@Model.Title</h1>
+        <p class="text-muted">@Model.SubTitle</p>
+        <div class="row gy-2 gy-md-4 row-cols-1 row-cols-md-2" style="max-width: 800px;">
+            <div class="col order-md-first">
+                <img class="img-fluid" alt="@Model.Images[0].Alt" src="@Model.Images[0].Src">
+            </div>
+            <div class="col d-md-flex order-first justify-content-md-start order-md-1">
+                <div>
+                    <h3 class="fs-5 fw-bold text-primary">Mi vitae duis</h3>
+                    <p>@Model.Description</p>
+                    <h3 class="fs-5 fw-bold text-primary">Consequat a tellus</h3>
+                    <p>@Model.Description</p>
+                </div>
+            </div>
+            <div class="col order-md-2">
+                <img class="img-fluid" alt="@Model.Images[1].Alt" src="@Model.Images[1].Src">
+            </div>
+            <div class="col order-md-2">
+                <img class="img-fluid" alt="@Model.Images[2].Alt" src="@Model.Images[2].Src">
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    public class ProjectFourPage
+    {
+        public string Title { get; set; }
+        public string SubTitle { get; set; }
+        public string Description { get; set; }
+        public List<Image> Images { get; set; } = [];
+        public string Link { get; set; } 
+    }
+
+    public class Image
+    {
+        public string Src { get; set; }
+        public string Alt { get; set; }
+        public string Class { get; set; }
+    }
+    ProjectFourPage Model = new ()
+    {
+        Title = "Jupiter Tasks",
+        SubTitle = "Mac Dash Icon",
+        Description = "Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.",
+        Link = "/",
+        Images = new List<Image>
+        {
+            new Image { Src = "../assets/img/projects/project5.webp", Alt = "Jupiter Tasks", Class = "img-fluid" },
+            new Image { Src = "../assets/img/projects/project1.webp", Alt = "The peak iOS mockup", Class = "img-fluid" },
+            new Image { Src = "../assets/img/projects/project4.webp", Alt = "Peach App", Class = "img-fluid" }
+        }
+    }; 
+}

@@ -1,0 +1,93 @@
+<div class="row mb-5">
+    <div class="col"> 
+        <h1 class="fs-3 fw-bold">@Project.Title</h1>
+        <p class="text-muted">@Project.Subtitle</p>
+        <p>@Project.Description</p>
+
+        <h3 class="fs-4 fw-bold mb-4" id="section-1">
+            <a class="link-primary me-2" href="#section-1">#</a>@Project.Section1.Heading
+        </h3>
+        <p>@Project.Section1.Content</p>
+
+        <figure class="my-4">
+            <blockquote class="blockquote">
+                <p class="mb-0">"@Project.HighlightedQuote.Text"</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">@Project.HighlightedQuote.Author</figcaption>
+        </figure>
+
+        <p class="mb-4">@Project.ExtendedDescription</p>
+        <img class="img-fluid mb-5" alt="@Project.Title" src="@Project.ImageUrl" />
+
+        <h3 class="fs-4 fw-bold mb-4" id="section-2">
+            <a class="link-primary me-2" href="#section-2">#</a>@Project.Section2.Heading
+        </h3>
+        <p>@Project.Section2.Content</p>
+        @if (Project.Section2.BulletPoints != null)
+        {
+            <ul>
+                @foreach (var point in Project.Section2.BulletPoints)
+                {
+                    <li>@point</li>
+                }
+            </ul>
+        }
+        <p>@Project.Section2.Content</p>
+    </div>
+</div>
+@code {
+    public class ProjectTwoDetail
+    {
+        public string Title { get; set; } = "Planet Sky";
+        public string Subtitle { get; set; } = "Tablet Digital Artwork";
+        public string Description { get; set; }
+        public Section Section1 { get; set; }
+        public Quote HighlightedQuote { get; set; }
+        public string ExtendedDescription { get; set; }
+        public string ImageUrl { get; set; }
+        public Section Section2 { get; set; }
+    }
+
+    public class Section
+    {
+        public string Heading { get; set; }
+        public string Content { get; set; }
+        public List<string>? BulletPoints { get; set; }
+    }
+
+    public class Quote
+    {
+        public string Text { get; set; }
+        public string Author { get; set; }
+    }
+
+    private ProjectTwoDetail Project = new()
+    {
+        Title = "Planet Sky",
+        Subtitle = "Tablet Digital Artwork",
+        Description = "Arcu dictumst rhoncus metus tellus. Habitant senectus sociosqu et aenean porttitor facilisis, risus etiam semper.",
+        Section1 = new Section
+        {
+            Heading = "Sit cras sed",
+            Content = "Adipiscing eleifend inceptos ut nec, non blandit sociosqu taciti porttitor. Ligula himenaeos porttitor fringilla magna."
+        },
+        HighlightedQuote = new Quote
+        {
+            Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.",
+            Author = "Someone famous"
+        },
+        ExtendedDescription = "Phasellus habitasse in, metus proin aliquam. Bibendum neque dictum, lacus nisl netus sodales et id lacinia quam. Sodales hendrerit fringilla sodales nam venenatis, at facilisis viverra. Faucibus aenean ligula ultrices.",
+        ImageUrl = "assets/img/projects/project2.webp",
+        Section2 = new Section
+        {
+            Heading = "A vitae quisque litora",
+            Content = "Ullamcorper at massa himenaeos vel. Vel laoreet eget semper commodo, ac habitasse venenatis. Porta aliquet ornare, nec tellus metus fames.",
+            BulletPoints = new List<string>
+            {
+                "Duis proin auctor lacus inceptos",
+                "Rhoncus in ultricies dictum aliquam",
+                "Ante bibendum dui eleifend hendrerit"
+            }
+        }
+    };
+}

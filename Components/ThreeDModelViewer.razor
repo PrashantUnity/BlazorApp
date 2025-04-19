@@ -1,0 +1,80 @@
+@using BlazorApp.Models
+<h3>@Model.Name</h3>
+
+<model-viewer src="@Model.Source"
+              ar ar-modes="webxr scene-viewer quick-look"
+              camera-controls tone-mapping="@Model.ToneMapping"
+              poster="@Model.Poster"
+              shadow-intensity="@Model.ShadowIntensity"
+              exposure="@Model.Exposure"
+              shadow-softness="@Model.ShadowSoftness"
+              auto-rotate>
+    <div class="progress-bar hide" slot="progress-bar">
+        <div class="update-bar"></div>
+    </div>
+    <button slot="ar-button" id="ar-button">
+        View in your space
+    </button>
+    <div id="ar-prompt">
+        <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
+    </div>
+</model-viewer>
+
+<!-- Simple Controls -->
+<div class="mt-4">
+    <label>Shadow Intensity: </label>
+    <input type="range" min="0" max="2" step="0.01" @bind="Model.ShadowIntensity" />
+    <br />
+
+    <label>Exposure: </label>
+    <input type="range" min="0" max="2" step="0.01" @bind="Model.Exposure" />
+    <br />
+
+    <label>Shadow Softness: </label>
+    <input type="range" min="0" max="1" step="0.01" @bind="Model.ShadowSoftness" />
+    <br />
+
+    <label>Tone Mapping:</label>
+    <select @bind="Model.ToneMapping">
+        <option value="neutral">Neutral</option>
+        <option value="aces">ACES</option>
+        <option value="legacy">Legacy</option>
+    </select>
+</div> 
+
+@code
+{
+    [Parameter] public ThreeD Model { get; set; } = new ThreeD();
+    public class ThreeD
+    {
+        public string Name { get; set; } = "Astronaut Neil Armstrong";
+        public string Description { get; set; } = " Neil Armstrong was an American astronaut and aeronautical engineer who was the first person to walk on the Moon.";
+        public string Source { get; set; } = "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb";
+        public string Poster { get; set; } = "poster.webp";
+        public string ShadowIntensity { get; set; } = "1.09";
+        public string ShadowSoftness { get; set; } = "0.42";
+        public string ToneMapping { get; set; } = "neutral";
+        public string Exposure { get; set; } = "0.82";
+    }
+}
+<style>
+    model-viewer {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        display: block;
+    }
+
+    @@media (min-width: 768px) {
+        model-viewer {
+            height: 500px;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        model-viewer {
+            height: 300px;
+        }
+    }
+</style>

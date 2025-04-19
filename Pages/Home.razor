@@ -1,0 +1,53 @@
+﻿@page "/"
+@using BlazorApp.Components.Projekt
+@using BlazorApp.Models
+<Projects Projectslist="@_projectslist" Title="Hello"></Projects>
+@code
+{
+    readonly List<Data> _projectslist =
+    [
+        new Data()
+        {
+            NavigateUri = "https://www.google.com",
+            Name = "Project 1",
+            Description = "Description of Project 1",
+            ImageUrl = "assets/img/projects/project1.webp",
+            ProjectName =nameof(ProjectOne)
+        },
+
+        new Data()
+        {
+            ProjectName = nameof(ProjectTwo),
+            NavigateUri = "https://www.google.com",
+            Name = "Project 1",
+            Description = "Description of Project 1",
+            ImageUrl = "assets/img/projects/project2.webp"
+        },
+
+        new Data()
+        {
+            ProjectName = nameof(ProjectThree),
+            NavigateUri = "https://www.google.com",
+            Name = "Project 1",
+            Description = "Description of Project 1",
+            ImageUrl = "assets/img/projects/project3.webp"
+        },
+
+        new Data()
+        {
+            ProjectName = nameof(ProjectFour),
+            NavigateUri = "https://www.google.com",
+            Name = "Project 1",
+            Description = "Description of Project 1",
+            ImageUrl = "assets/img/projects/project4.webp"
+        }, 
+        new Data()
+        {
+            ProjectName = nameof(ThreeDModelViewer),
+            NavigateUri = "https://www.google.com",
+            Name = "Project 1",
+            Description = "Description of Project 1",
+            ImageUrl = "assets/img/projects/project4.webp"
+        } 
+    ];
+}

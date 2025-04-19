@@ -1,0 +1,76 @@
+<div class="row mb-5">
+    <div class="col"> 
+        <h1 class="fs-3 fw-bold">@_project.Title</h1>
+        <p class="text-muted">@_project.Subtitle</p>
+        <p>@_project.Description</p>
+
+        <div class="row gx-2 gy-2 gx-md-2 gy-md-0 mb-5" data-bss-baguettebox="">
+            <div class="col-md-8">
+                @foreach (var img in _project.Images.Where(i => i.IsMain))
+                {
+                    <a href="@img.Src"><img class="img-fluid" alt="@img.Alt" src="@img.Src" /></a>
+                }
+            </div>
+            <div class="col">
+                <div class="row gx-2 gx-md-0 gy-md-2 row-cols-1 row-cols-sm-2 row-cols-md-1">
+                    @foreach (var img in _project.Images.Where(i => !i.IsMain))
+                    {
+                        <div class="col">
+                            <a href="@img.Src"><img class="img-fluid" alt="@img.Alt" src="@img.Src" /></a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <h3 class="fs-4 fw-bold mb-4" id="section-2">
+            <a class="link-primary me-2" href="#section-2">#</a>@_project.SectionHeading
+        </h3>
+        <p>@_project.SectionContent</p>
+
+        <ul>
+            @foreach (var bullet in _project.SectionBulletPoints)
+            {
+                <li>@bullet</li>
+            }
+        </ul>
+
+        <p>@_project.SectionParagraph</p>
+    </div>
+</div> 
+@code{
+    public class ProjectOneDetail
+    {
+        public required string Title { get; set; }
+        public required string Subtitle { get; set; }
+        public required string Description { get; set; }
+        public required List<ProjectOneImage> Images { get; set; } = [];
+        public required string SectionHeading { get; set; }
+        public required string SectionContent { get; set; }
+        public required List<string> SectionBulletPoints { get; set; } = [];
+        public required string SectionParagraph { get; set; }
+    }
+
+    public class ProjectOneImage
+    {
+        public required string Src { get; set; }
+        public required string Alt { get; set; }
+        public bool IsMain { get; set; } // True for large image on left
+    } 
+    ProjectOneDetail _project = new()
+    {
+        Title = "Project One",
+        Subtitle = "Designed in DrawApp 4.0",
+        Description = "Accumsan mi molestie mattis, porta senectus quisque sollicitudin. Quisque sociosqu laoreet sit nisl, quisque lacinia augue. Vivamus etiam malesuada sapien nostra cras, dictum dapibus fames.",
+        Images =
+        [
+            new ProjectOneImage { Src = "assets/img/profile.webp", Alt = "Project 1 Image 1", IsMain = true },
+            new ProjectOneImage { Src = "assets/img/profile.webp", Alt = "Project 1 Image 2" },
+            new ProjectOneImage { Src = "assets/img/profile.webp", Alt = "Project 1 Image 3" }
+        ],
+        SectionHeading = "A vitae quisque litora",
+        SectionContent = "Ullamcorper at massa himenaeos vel. Vel laoreet eget semper commodo, ac habitasse venenatis. Porta aliquet ornare, nec tellus metus fames.",
+        SectionBulletPoints = ["Bullet point 1", "Bullet point 2", "Bullet point 3"],
+        SectionParagraph = "Ullamcorper at massa himenaeos vel. Vel laoreet eget semper commodo, ac habitasse venenatis. Porta aliquet ornare, nec tellus metus fames."
+    };
+}
