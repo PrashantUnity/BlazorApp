@@ -8,14 +8,15 @@
                 
                 @foreach(var item in Projectslist)
                 {
-                    <Merch DataToBeSent="@item" OnClick="LoadContent" BsModalName="#exampleModal"></Merch>
+                    <Merch DataToBeSent="@item" OnClick="LoadContent" BsModalName=@($"#{_bsModalName}")></Merch>
                 } 
             </div>
         </div>
     </div>
 </div>
-<MerchViewer ChildContent="_selectedContent" />
+<MerchViewer ChildContent="_selectedContent" BsModalName="@_bsModalName" />
 @code {
+    private string _bsModalName = "projectModal";
     private RenderFragment? _selectedContent = builder =>
     {
         builder.OpenComponent(0, typeof(ProjectOne));
