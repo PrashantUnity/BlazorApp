@@ -14,6 +14,13 @@ public partial class ThreeDModelPreviwerGenerator : ComponentBase
     [Parameter] public ModelViewerOptionsList Options { get; set; } = new();
     [Inject] private IJSRuntime Js { get; set; } = null!;
     [Inject] private ToastService ToastService { get; set; } = null!;
+
+    protected override Task OnInitializedAsync()
+    {
+        Model.Source = "https://raw.githubusercontent.com/abhijeetunreal/3DB/refs/heads/main/model/spherical_maze.glb";
+        return base.OnInitializedAsync();
+    }
+
     private async Task Generate()
     { 
         var jsonString = JsonSerializer.Serialize(Model, new JsonSerializerOptions
