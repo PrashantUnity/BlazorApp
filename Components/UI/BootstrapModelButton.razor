@@ -1,0 +1,19 @@
+<button class="@Class"
+        @onclick="HandleClick"
+        data-bs-toggle="modal"
+        data-bs-target=@($"#{BsModalNameId}") >@Title</button>
+@code {
+    [Parameter] public string Title { get; set; } = "Upload Model";
+    [Parameter,EditorRequired] public EventCallback OnClick { get; set; } = default!;
+    [Parameter] public string Class { get; set; } = "btn btn-lg btn-primary-dragient mt-3";
+    [Parameter,EditorRequired] public string BsModalNameId { get; set; } = "#projectModalPreview";
+    
+    /// <summary>
+    /// Method to handle the click event.
+    /// It will be Called Based
+    /// </summary>
+    private async Task HandleClick()
+    {
+        await OnClick.InvokeAsync();
+    }
+}

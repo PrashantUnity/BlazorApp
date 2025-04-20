@@ -1,14 +1,12 @@
 using BlazorApp.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 
-namespace BlazorApp.Components;
+namespace BlazorApp.Components.Projekt;
 
 public partial class ThreeDModelViewer:ComponentBase
 {
-    [Parameter] public ModelViewerOptions Model { get; set; } = new();
-    [Inject] private IJSRuntime Js { get; set; } = null!;
+    [Parameter] public ModelViewerOptions Model { get; set; } = new(); 
     [Parameter] public ModelViewerOptionsList Options { get; set; } = new();
 
     private async Task HandleFileUpload(InputFileChangeEventArgs e)

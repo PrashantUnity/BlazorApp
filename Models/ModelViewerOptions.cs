@@ -3,7 +3,7 @@ namespace BlazorApp.Models;
 public class ModelViewerOptions
 {
     public string Description { get; set; } = " Neil Armstrong was an American astronaut and aeronautical engineer who was the first person to walk on the Moon.";
-    public string Source { get; set; } = "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb";
+    public string Source { get; set; } = "https://raw.githubusercontent.com/abhijeetunreal/3DB/refs/heads/main/model/nerveplant.glb";
     public string Poster { get; set; } = "poster.webp";
     public bool EnableAr { get; set; } = true;
     public bool AutoRotate { get; set; } = true;

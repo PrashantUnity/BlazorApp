@@ -1,0 +1,148 @@
+@using BlazorApp.Components.UI
+<h3>@Model.AltText</h3>
+
+<model-viewer id="ThreeDModelViewer"
+              src="@Model.Source"
+              alt="@Model.AltText"
+              ar="@Model.EnableAr"
+              ar-modes="@Model.ArModes"
+              ar-scale="@Model.ArScale"
+              camera-controls="@Model.CameraControls"
+              touch-action="@Model.TouchAction"
+              auto-rotate="@Model.AutoRotate"
+              auto-rotate-delay="@Model.AutoRotateDelay"
+              animation-name="@Model.AnimationName"
+              animation-crossfade-duration="@Model.AnimationCrossfadeDuration"
+              disable-pan="@Model.DisablePan"
+              disable-tap="@Model.DisableTap"
+              camera-orbit="@Model.CameraOrbit"
+              max-camera-orbit="@Model.MaxCameraOrbit"
+              min-camera-orbit="@Model.MinCameraOrbit"
+              field-of-view="@Model.FieldOfView"
+              max-field-of-view="@Model.MaxFieldOfView"
+              min-field-of-view="@Model.MinFieldOfView"
+              environment-image="@Model.EnvironmentImage"
+              skybox-image="@Model.SkyboxImage"
+              skybox-height="@Model.SkyboxHeight"
+              tone-mapping="@Model.ToneMapping"
+              poster="@Model.Poster"
+              shadow-intensity="@Model.ShadowIntensity"
+              shadow-softness="@Model.ShadowSoftness"
+              exposure="@Model.Exposure"
+              ios-src="@Model.IosSrc"
+              reveal="@Model.Reveal"
+              loading="@Model.Loading"
+              background-color="@Model.BackgroundColor">
+    <GoToFullScreen ElementId="ThreeDModelViewer" />
+</model-viewer>
+
+
+<div class="container mt-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="form-check">
+                <InputCheckbox @bind-Value="Model.EnableAr" class="form-check-input" id="enableArCheck"/>
+                <label class="form-check-label" for="enableArCheck">Enable AR</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <InputCheckbox @bind-Value="Model.CameraControls" class="form-check-input" id="cameraControlsCheck"/>
+                <label class="form-check-label" for="cameraControlsCheck">Camera Controls</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <InputCheckbox @bind-Value="Model.AutoRotate" class="form-check-input" id="autoRotateCheck"/>
+                <label class="form-check-label" for="autoRotateCheck">Auto Rotate</label>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Shadow Intensity</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="0" max="2" step="0.1" @bind="Model.ShadowIntensity" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.ShadowIntensity</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Shadow Softness</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="0" max="1" step="0.1" @bind="Model.ShadowSoftness" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.ShadowSoftness</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Skybox Height</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="1" max="100" step="0.1" @bind="Model.SkyboxHeight" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.SkyboxHeight</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Exposure</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="0" max="2" step="0.1" @bind="Model.Exposure" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.Exposure</span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Background Color</label>
+            <InputText @bind-Value="Model.BackgroundColor" class="form-control" placeholder="e.g., transparent, #fff"
+                       type="color"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Animation Name</label>
+            <select @bind="Model.AnimationName" class="form-select">
+                @foreach (var item in Options.AnimationNames)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Skybox Image</label>
+            <select @bind="Model.SkyboxImage" class="form-select">
+                @foreach (var item in Options.SkyboxImages)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label">Environment Image</label>
+            <select @bind="Model.EnvironmentImage" class="form-select">
+                @foreach (var item in Options.EnvironmentImages)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div> 
+    </div>
+</div>
+
+<style>
+    model-viewer {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        display: block;
+    }
+
+    @@media (min-width: 768px) {
+        model-viewer {
+            height: 500px;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        model-viewer {
+            height: 300px;
+        }
+    } 
+</style>

@@ -24,6 +24,7 @@ public partial class Projects:ComponentBase
             nameof(ProjectThree) => b => { b.OpenComponent(0, typeof(ProjectThree)); b.CloseComponent(); },
             nameof(ProjectFour)  => b => { b.OpenComponent(0, typeof(ProjectFour));  b.CloseComponent(); },
             nameof(ThreeDModelViewer)  => b => { b.OpenComponent(0, typeof(ThreeDModelViewer));  b.CloseComponent(); },
+            nameof(ThreeDModelPreviwerGenerator)  => b => { b.OpenComponent(0, typeof(ThreeDModelPreviwerGenerator));  b.CloseComponent(); },
             _=> null
         };
     } 

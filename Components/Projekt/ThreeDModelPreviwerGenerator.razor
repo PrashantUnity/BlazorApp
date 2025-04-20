@@ -1,6 +1,7 @@
+@using BlazorApp.Components.UI
 <h3>@Model.AltText</h3>
 
-<model-viewer id="model-viewer"
+<model-viewer id="ThreeDModelPreviwerGenerator"
               src="@Model.Source"
               alt="@Model.AltText"
               ar="@Model.EnableAr"
@@ -32,13 +33,11 @@
               reveal="@Model.Reveal"
               loading="@Model.Loading"
               background-color="@Model.BackgroundColor">
-    <GoToFullScreen ElementId="model-viewer" />
+    <GoToFullScreen ElementId="ThreeDModelPreviwerGenerator" />
 </model-viewer>
-
-
-
 <div class="container mt-4">
     <div class="row g-3">
+        <button @onclick="Generate">Generate Json</button>
         <div class="col-md-4">
             <div class="form-check">
                 <InputCheckbox @bind-Value="Model.EnableAr" class="form-check-input" id="enableArCheck"/>
@@ -57,21 +56,53 @@
                 <label class="form-check-label" for="autoRotateCheck">Auto Rotate</label>
             </div>
         </div>
-        <div class="col-md-4">
-            <label class="form-label">Shadow Intensity</label>
-            <input type="range" min="0" max="1" step="0.1" @bind="Model.ShadowIntensity" class="form-range"/>
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Shadow Intensity</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="0" max="2" step="0.1" @bind="Model.ShadowIntensity" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.ShadowIntensity</span>
+            </div>
         </div>
-        <div class="col-md-4">
-            <label class="form-label">Shadow Softness</label>
-            <input type="range" min="0" max="1" step="0.1" @bind="Model.ShadowSoftness" class="form-range"/>
+
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Shadow Softness</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="0" max="1" step="0.1" @bind="Model.ShadowSoftness" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.ShadowSoftness</span>
+            </div>
         </div>
-        <div class="col-md-4">
-            <label class="form-label">Exposure</label>
-            <input type="range" min="0" max="2" step="0.1" @bind="Model.Exposure" class="form-range"/>
+
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Skybox Height</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="1" max="100" step="0.1" @bind="Model.SkyboxHeight" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.SkyboxHeight</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold">Exposure</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <input type="range" min="0" max="2" step="0.1" @bind="Model.Exposure" class="form-range" />
+                <span class="ms-2 badge bg-secondary">@Model.Exposure</span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Upload Glt</label>
+            <InputFile OnChange="HandleGltfUpload" class="form-control"/>
         </div>
         <div class="col-md-6">
-            <label class="form-label">Upload Model</label>
-            <InputFile OnChange="HandleFileUpload" class="form-control"/>
+            <label class="form-label">SkyBox Image</label>
+            <InputFile OnChange="HandleSkyBoxUpload" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Environment Image</label>
+            <InputFile OnChange="HandleEnvironmentImageUpload" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">SkyImage Image</label>
+            <InputFile OnChange="HandleSkyImageImageUpload" class="form-control"/>
         </div>
         <div class="col-md-6">
             <label class="form-label">Alt Text</label>
@@ -93,31 +124,11 @@
         </div>
         <div class="col-md-6">
             <label class="form-label">Animation Name</label>
-            <select @bind="Model.AnimationName" class="form-select">
-                @foreach (var item in Options.AnimationNames)
-                {
-                    <option value="@item">@item</option>
-                }
-            </select>
+            <InputText @bind-Value="Model.AnimationName" class="form-control" placeholder="e.g., transparent, #fff"
+                       type="text"/>
         </div>
-        <div class="col-md-6">
-            <label class="form-label">Skybox Height</label>
-            <select @bind="Model.SkyboxHeight" class="form-select">
-                @foreach (var item in Options.SkyboxHeights)
-                {
-                    <option value="@item">@item</option>
-                }
-            </select>
-        </div>
-        <div class="col-md-6">
-            <label class="form-label">Skybox Image</label>
-            <select @bind="Model.SkyboxImage" class="form-select">
-                @foreach (var item in Options.SkyboxImages)
-                {
-                    <option value="@item">@item</option>
-                }
-            </select>
-        </div>
+        
+
         <div class="col-md-6">
             <label class="form-label">Touch Action</label>
             <select @bind="Model.TouchAction" class="form-select">
@@ -136,16 +147,6 @@
                 }
             </select>
         </div>
-        <div class="col-md-6">
-            <label class="form-label">Environment Image</label>
-            <select @bind="Model.EnvironmentImage" class="form-select">
-                @foreach (var item in Options.EnvironmentImages)
-                {
-                    <option value="@item">@item</option>
-                }
-            </select>
-        </div>
-
     </div>
 </div>
 

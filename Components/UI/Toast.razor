@@ -1,0 +1,21 @@
+@using BlazorApp.Service
+@inject ToastService ToastService
+
+@if (_visible)
+{
+    <div class="toast show" style="position: absolute; top: 1rem; right: 1rem; z-index: 9999;">
+        <div class="toast-header">
+            @if (!string.IsNullOrEmpty(_icon))
+            {
+                <i class="@_icon mx-1"></i>
+            }
+            <strong class="me-auto">@_title</strong>
+            <small class="text-muted">@_subtitle</small>
+            <button type="button" class="btn-close ms-2 mb-1" @onclick="Hide"></button>
+        </div>
+        <div class="toast-body">
+            @_content
+        </div>
+    </div>
+}
+ 

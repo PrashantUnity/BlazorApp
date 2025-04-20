@@ -1,8 +1,7 @@
-using BlazorApp.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace BlazorApp.Components;
+namespace BlazorApp.Components.UI;
 
 public partial class GoToFullScreen : ComponentBase
 {
