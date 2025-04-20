@@ -1,62 +1,154 @@
-@using BlazorApp.Models
-<h3>@Model.Name</h3>
+<h3>@Model.AltText</h3>
 
-<model-viewer src="@Model.Source"
-              ar ar-modes="webxr scene-viewer quick-look"
-              camera-controls tone-mapping="@Model.ToneMapping"
+<model-viewer id="model-viewer"
+              src="@Model.Source"
+              alt="@Model.AltText"
+              ar="@Model.EnableAr"
+              ar-modes="@Model.ArModes"
+              ar-scale="@Model.ArScale"
+              camera-controls="@Model.CameraControls"
+              touch-action="@Model.TouchAction"
+              auto-rotate="@Model.AutoRotate"
+              auto-rotate-delay="@Model.AutoRotateDelay"
+              animation-name="@Model.AnimationName"
+              animation-crossfade-duration="@Model.AnimationCrossfadeDuration"
+              disable-pan="@Model.DisablePan"
+              disable-tap="@Model.DisableTap"
+              camera-orbit="@Model.CameraOrbit"
+              max-camera-orbit="@Model.MaxCameraOrbit"
+              min-camera-orbit="@Model.MinCameraOrbit"
+              field-of-view="@Model.FieldOfView"
+              max-field-of-view="@Model.MaxFieldOfView"
+              min-field-of-view="@Model.MinFieldOfView"
+              environment-image="@Model.EnvironmentImage"
+              skybox-image="@Model.SkyboxImage"
+              skybox-height="@Model.SkyboxHeight"
+              tone-mapping="@Model.ToneMapping"
               poster="@Model.Poster"
               shadow-intensity="@Model.ShadowIntensity"
-              exposure="@Model.Exposure"
               shadow-softness="@Model.ShadowSoftness"
-              auto-rotate>
-    <div class="progress-bar hide" slot="progress-bar">
-        <div class="update-bar"></div>
-    </div>
-    <button slot="ar-button" id="ar-button">
-        View in your space
-    </button>
-    <div id="ar-prompt">
-        <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
-    </div>
+              exposure="@Model.Exposure"
+              ios-src="@Model.IosSrc"
+              reveal="@Model.Reveal"
+              loading="@Model.Loading"
+              background-color="@Model.BackgroundColor">
+    <GoToFullScreen ElementId="model-viewer" />
 </model-viewer>
 
-<!-- Simple Controls -->
-<div class="mt-4">
-    <label>Shadow Intensity: </label>
-    <input type="range" min="0" max="2" step="0.01" @bind="Model.ShadowIntensity" />
-    <br />
 
-    <label>Exposure: </label>
-    <input type="range" min="0" max="2" step="0.01" @bind="Model.Exposure" />
-    <br />
 
-    <label>Shadow Softness: </label>
-    <input type="range" min="0" max="1" step="0.01" @bind="Model.ShadowSoftness" />
-    <br />
+<div class="container mt-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="form-check">
+                <InputCheckbox @bind-Value="Model.EnableAr" class="form-check-input" id="enableArCheck"/>
+                <label class="form-check-label" for="enableArCheck">Enable AR</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <InputCheckbox @bind-Value="Model.CameraControls" class="form-check-input" id="cameraControlsCheck"/>
+                <label class="form-check-label" for="cameraControlsCheck">Camera Controls</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <InputCheckbox @bind-Value="Model.AutoRotate" class="form-check-input" id="autoRotateCheck"/>
+                <label class="form-check-label" for="autoRotateCheck">Auto Rotate</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Shadow Intensity</label>
+            <input type="range" min="0" max="1" step="0.1" @bind="Model.ShadowIntensity" class="form-range"/>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Shadow Softness</label>
+            <input type="range" min="0" max="1" step="0.1" @bind="Model.ShadowSoftness" class="form-range"/>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Exposure</label>
+            <input type="range" min="0" max="2" step="0.1" @bind="Model.Exposure" class="form-range"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Upload Model</label>
+            <InputFile OnChange="HandleFileUpload" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Alt Text</label>
+            <InputText @bind-Value="Model.AltText" class="form-control" placeholder="Alt Text"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Background Color</label>
+            <InputText @bind-Value="Model.BackgroundColor" class="form-control" placeholder="e.g., transparent, #fff"
+                       type="color"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">AR Modes</label>
+            <select @bind="Model.ArModes" class="form-select">
+                @foreach (var item in Options.ArModes)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Animation Name</label>
+            <select @bind="Model.AnimationName" class="form-select">
+                @foreach (var item in Options.AnimationNames)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Skybox Height</label>
+            <select @bind="Model.SkyboxHeight" class="form-select">
+                @foreach (var item in Options.SkyboxHeights)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Skybox Image</label>
+            <select @bind="Model.SkyboxImage" class="form-select">
+                @foreach (var item in Options.SkyboxImages)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Touch Action</label>
+            <select @bind="Model.TouchAction" class="form-select">
+                @foreach (var item in Options.TouchActions)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Tone Mapping</label>
+            <select @bind="Model.ToneMapping" class="form-select">
+                @foreach (var item in Options.ToneMappings)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Environment Image</label>
+            <select @bind="Model.EnvironmentImage" class="form-select">
+                @foreach (var item in Options.EnvironmentImages)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>
 
-    <label>Tone Mapping:</label>
-    <select @bind="Model.ToneMapping">
-        <option value="neutral">Neutral</option>
-        <option value="aces">ACES</option>
-        <option value="legacy">Legacy</option>
-    </select>
-</div> 
+    </div>
+</div>
 
-@code
-{
-    [Parameter] public ThreeD Model { get; set; } = new ThreeD();
-    public class ThreeD
-    {
-        public string Name { get; set; } = "Astronaut Neil Armstrong";
-        public string Description { get; set; } = " Neil Armstrong was an American astronaut and aeronautical engineer who was the first person to walk on the Moon.";
-        public string Source { get; set; } = "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb";
-        public string Poster { get; set; } = "poster.webp";
-        public string ShadowIntensity { get; set; } = "1.09";
-        public string ShadowSoftness { get; set; } = "0.42";
-        public string ToneMapping { get; set; } = "neutral";
-        public string Exposure { get; set; } = "0.82";
-    }
-}
 <style>
     model-viewer {
         width: 100%;
@@ -77,4 +169,5 @@
             height: 300px;
         }
     }
+
 </style>
